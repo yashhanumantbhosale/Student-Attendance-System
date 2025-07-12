@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1523580846011-d3a5bc25702b'); /* Replace with your wallpaper URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .overlay-container {
+            background-color: rgba(255, 255, 255, 0.9); /* semi-transparent white */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="overlay-container">
+        <h2 class="text-center text-primary mb-4">📊 Student Attendance Report</h2>
+
+        <div class="text-center mb-3">
+            <a href="/" class="btn btn-outline-dark">
+                ⬅ Back to Home
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Attendance</th>
+                        <th scope="col">Total Classes</th>
+                        <th scope="col">Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr class="
+                        {% if student['Percentage'] < 75 %}
+                            table-danger
+                        {% elif student['Percentage'] < 90 %}
+                            table-warning
+                        {% else %}
+                            table-success
+                        {% endif %}
+                    ">
+                        <td>{{ student['Student ID'] }}</td>
+                        <td class="highlight">{{ student['Name'] }}</td>
+                        <td>{{ student['Attendance'] }}</td>
+                        <td>{{ student['Total Classes'] }}</td>
+                        <td><strong>{{ '%.2f'|format(student['Percentage']) }}%</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
